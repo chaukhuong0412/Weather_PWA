@@ -53,8 +53,6 @@ updateCard = function (data) {
     card.querySelector('.date').textContent = date;
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
     window.localforage.getItem('selectedCities', function(err, cities) {
         if (cities) {
@@ -63,3 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 })
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+     .register('/service-worker.js')
+     .then(function() { 
+        console.log('Service Worker Registered'); 
+      });
+  }
