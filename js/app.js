@@ -2,7 +2,7 @@ var container = document.querySelector('.container');
 var cardTemplate = document.querySelector('.cardTemplate');
 var cards = {};
 var selected = document.querySelector('#selectedCityToAdd');
-var url = 'http://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
+var url = 'https://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
 var selectedCities = [];
 
 document.querySelector('#addBut').addEventListener('click', function () {
