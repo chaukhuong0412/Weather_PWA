@@ -3,8 +3,8 @@ var dataCacheName = 'data-weatherPWA-v1';
 var filesToCache = [
     '/',
     '/index.html',
-    '/scripts/app.js',
-    '/scripts/localforage.js',
+    '/app.js',
+    '/js/localforage.js',
 ];
 
 self.addEventListener('install', function (e) {

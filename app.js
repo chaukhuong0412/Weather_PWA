@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-     .register('https://github.com/chaukhuong0412/Weather_PWA/blob/master/service-worker.js')
+     .register('./service-worker.js')
      .then(function() { 
         console.log('Service Worker Registered'); 
       });
