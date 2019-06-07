@@ -23,7 +23,7 @@ self.addEventListener('activate', function (e) {
     e.waitUntil(
         caches.keys().then(function (keyList) {
             return Promise.all(keyList.map(function (key) {
-                if (key !== cacheName) {
+                if (key !== cacheName && key !== dataCacheName) {
                     console.log('[ServiceWorker] Removing old cache', key);
                     return caches.delete(key);
                 }
@@ -35,8 +35,8 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
     if (e.request.url.startsWith(baseUrl)) {
         e.respondWith(
-            fetch(e.request).then(function(respone) {
-                return caches.open(dataCacheName).then(function(cache) {
+            fetch(e.request).then(function (respone) {
+                return caches.open(dataCacheName).then(function (cache) {
                     cache.put(e.request.url, respone.clone());
                     console.log('[Service Worker] Fetched and Cached', e.request.url);
                     return respone;
@@ -52,6 +52,6 @@ self.addEventListener('fetch', function (e) {
             })
         );
     }
-    
-    
+
+
 });
