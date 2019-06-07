@@ -1,5 +1,6 @@
 var cacheName = 'weatherPWA-v1';
 var dataCacheName = 'data-weatherPWA-v1';
+var baseUrl = 'https://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
 var filesToCache = [
     '/',
     '/index.html',
@@ -32,10 +33,25 @@ self.addEventListener('activate', function (e) {
 });
 
 self.addEventListener('fetch', function (e) {
-    console.log('[ServiceWorker] Fetch', e.request.url);
-    e.respondWith(
-        caches.match(e.request).then(function (response) {
-            return response || fetch(e.request);
-        })
-    );
+    if (e.request.url.startsWith(baseUrl)) {
+        e.respondWith(
+            fetch(e.request).then(function(respone) {
+                return caches.open(dataCacheName).then(function(cache) {
+                    cache.put(e.request.url, respone.clone());
+                    console.log('[Service Worker] Fetched and Cached', e.request.url);
+                    return respone;
+                })
+            })
+        )
+    }
+    else {
+        e.respondWith(
+            caches.match(e.request).then(function (response) {
+                console.log('[Service Worker] fetched');
+                return response || fetch(e.request);
+            })
+        );
+    }
+    
+    
 });

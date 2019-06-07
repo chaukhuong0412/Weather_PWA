@@ -2,7 +2,7 @@ var container = document.querySelector('.container');
 var cardTemplate = document.querySelector('.cardTemplate');
 var cards = {};
 var selected = document.querySelector('#selectedCityToAdd');
-var url = 'https://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
+var baseUrl = 'https://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
 var selectedCities = [];
 
 document.querySelector('#addBut').addEventListener('click', function () {
@@ -16,22 +16,32 @@ document.querySelector('#addBut').addEventListener('click', function () {
 
 saveSelectedCities = function() {
     window.localforage.setItem('selectedCities', selectedCities);
-    window.localforage.getItem('selectedCities', function(cities) {
-        console.log(cities);
-    });
 }
 
 getForcastOfCity = function(city) {
+    var url = baseUrl + city;
+    if ('caches' in window) {
+        caches.match(url).then(function(respone) {
+            if (respone) {
+                respone.json().then(function(data) {
+                    updateCard(data);
+                    console.log('Cached data', data);
+                })
+            }
+        })
+    }
+
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
                 var data = JSON.parse(request.response);
+                console.log('Fetched data', data);
                 updateCard(data);
             }
         }
     }
-    request.open('GET', url + city);
+    request.open('GET', url);
     request.send();
 }
 
