@@ -2,10 +2,10 @@ var cacheName = 'weatherPWA-v1';
 var dataCacheName = 'data-weatherPWA-v1';
 var baseUrl = 'https://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
 var filesToCache = [
-    '',
-    'index.html',
-    'app.js',
-    'js/localforage.js',
+    './',
+    './index.html',
+    './app.js',
+    './js/localforage.js',
 ];
 
 self.addEventListener('install', function (e) {
