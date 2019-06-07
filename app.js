@@ -4,6 +4,7 @@ var cards = {};
 var selected = document.querySelector('#selectedCityToAdd');
 var baseUrl = 'https://api.openweathermap.org/data/2.5/weather?APPID=3acf6a94d226fdbd6fffc6d6ff885385&units=metric&q=';
 var selectedCities = [];
+var btnAdd = document.querySelector('#addToHomeScreenBut');
 
 document.querySelector('#addBut').addEventListener('click', function () {
     var selectedCity = selected.options[selected.selectedIndex].textContent;
